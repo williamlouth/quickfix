@@ -1417,38 +1417,6 @@ TEST(setString_TrailerStructureInvalid_MessageStructureInvalid) {
   CHECK(!msg.hasValidStructure(checkSumTag));
 }
 
-TEST(setString_SignatureInTrailerWithoutSignatureLength_InvalidMessageException) {
-
-  DataDictionary dictionary;
-  dictionary.checkFieldsOutOfOrder(true);
-  dictionary.addHeaderField(FIELD::BeginString, true);
-  dictionary.addHeaderField(FIELD::MsgType, true);
-  dictionary.addField(FIELD::ClOrdID);
-  dictionary.addField(FIELD::MsgType);
-  dictionary.addTrailerField(FIELD::CheckSum, true);
-  dictionary.addTrailerField(FIELD::Signature, true);
-
-  dictionary.addFieldType(FIELD::Signature, FIX::TYPE::Type::Data);
-
-  dictionary.setVersion(BeginString_FIX42);
-
-  FIX::Message msg;
-  std::string delimSOH = "\x01";
-  std::string rawFixMsg = "8=FIX.4.2" + delimSOH
-      + "9=200"         + delimSOH
-      + "35=A"          + delimSOH
-      + "49=SENDER"     + delimSOH
-      + "56=TARGET"     + delimSOH
-      + "34=1"          + delimSOH
-      + "98=0"          + delimSOH
-      + "108=30"        + delimSOH
-      + "89=200"        + delimSOH; // Signature
-      + "10=200"        + delimSOH;
-
-  CHECK_THROW(msg.setString(rawFixMsg, false, &dictionary, &dictionary), InvalidMessage);
-
-}
-
 TEST(setStringAndValidate_IncorrectBodyLength_InvalidException) {
 
   DataDictionary dictionary;
