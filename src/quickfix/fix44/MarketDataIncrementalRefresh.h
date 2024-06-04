@@ -20,6 +20,7 @@ namespace FIX44
 
     FIELD_SET(*this, FIX::MDReqID);
     FIELD_SET(*this, FIX::NoMDEntries);
+    FIELD_SET(*this, FIX::Symbol);
     class NoMDEntries: public FIX::Group
     {
     public:
