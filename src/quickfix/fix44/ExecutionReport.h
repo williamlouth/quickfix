@@ -51,6 +51,33 @@ namespace FIX44
     FIELD_SET(*this, FIX::MassStatusReqID);
     FIELD_SET(*this, FIX::TotNumReports);
     FIELD_SET(*this, FIX::LastRptRequested);
+   FIELD_SET(*this, FIX::NoFills);
+    class NoFills: public FIX::Group
+    {
+    public:
+    NoFills() : FIX::Group(1362,1363,FIX::message_order(1363,1364,1365,1414,1443,0)) {}
+      FIELD_SET(*this, FIX::FillExecID);
+      FIELD_SET(*this, FIX::FillPx);
+      FIELD_SET(*this, FIX::FillQty);
+      FIELD_SET(*this, FIX::NoNested4PartyIDs);
+      class NoNested4PartyIDs: public FIX::Group
+      {
+      public:
+      NoNested4PartyIDs() : FIX::Group(1414,1415,FIX::message_order(1415,1416,1417,1413,0)) {}
+        FIELD_SET(*this, FIX::Nested4PartyID);
+        FIELD_SET(*this, FIX::Nested4PartyIDSource);
+        FIELD_SET(*this, FIX::Nested4PartyRole);
+        FIELD_SET(*this, FIX::NoNested4PartySubIDs);
+        class NoNested4PartySubIDs: public FIX::Group
+        {
+        public:
+        NoNested4PartySubIDs() : FIX::Group(1413,1412,FIX::message_order(1412,1411,0)) {}
+          FIELD_SET(*this, FIX::Nested4PartySubID);
+          FIELD_SET(*this, FIX::Nested4PartySubIDType);
+        };
+      };
+      FIELD_SET(*this, FIX::FillLiquidityInd);
+    };
     FIELD_SET(*this, FIX::NoPartyIDs);
     class NoPartyIDs: public FIX::Group
     {
