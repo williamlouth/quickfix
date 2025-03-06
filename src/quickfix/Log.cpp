@@ -74,4 +74,21 @@ void ScreenLogFactory::destroy( Log* pLog )
 {
   delete pLog;
 }
+  Log* NullLogFactory::create()
+{
+  return new NullLog();
+}
+Log* NullLogFactory::create(const SessionID&)
+{
+  return new NullLog();
+}
+void NullLogFactory::destroy(Log* log)
+{
+  delete log;
+}
+void NullLogFactory::init(const Dictionary& settings, bool& incoming, bool& outgoing, bool& event)
+{
+}
+
+
 } //namespace FIX
